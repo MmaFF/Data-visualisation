@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 "description": "Visitors by Category in Australia",
                 "data": { "values": data },
                 "mark": "bar",
+                "width": "container",
+                "height": "container",
                 "encoding": {
                     "x": { "field": "Category", "type": "nominal", "title": "Tourism Category" },
                     "y": { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
@@ -30,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 "description": "Visitors by Accommodation Availability",
                 "data": { "values": data },
                 "mark": "bar",
+                "width": "container",
+                "height": "container",
                 "encoding": {
                     "x": { "field": "Accommodation_Available", "type": "nominal", "title": "Accommodation Available" },
                     "y": { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" },
@@ -44,6 +48,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 "description": "Ratings by Category",
                 "data": { "values": data },
                 "mark": "bar",
+                "width": "container",
+                "height": "container",
                 "encoding": {
                     "x": { "field": "Category", "type": "nominal", "title": "Tourism Category" },
                     "y": { "field": "Rating", "type": "quantitative", "title": "Rating" }
@@ -57,6 +63,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 "description": "Revenue by Category in Australia",
                 "data": { "values": data },
                 "mark": "bar",
+                "width": "container",
+                "height": "container",
                 "encoding": {
                     "x": { "field": "Category", "type": "nominal", "title": "Tourism Category" },
                     "y": { "field": "Revenue", "type": "quantitative", "title": "Revenue ($AUD)" }
