@@ -8,69 +8,60 @@ document.addEventListener("DOMContentLoaded", function() {
             data.forEach(d => {
                 d.Visitors = +d.Visitors;
                 d.Rating = +d.Rating;
-                d.Revenue = +d.Revenue;
             });
 
-            // Visualization 1: Number of Visitors by Tourism Category
-            const spec1 = {
-                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "description": "Visitors by Category in Australia",
-                "data": { "values": data },
-                "mark": "bar",
-                "width": "container",
-                "height": "container",
-                "encoding": {
-                    "x": { "field": "Category", "type": "nominal", "title": "Tourism Category" },
-                    "y": { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
+            // Create a selection that can be used for filtering both charts
+            const selection = {
+                "selection": {
+                    "RegionSelect": {
+                        "type": "multi",
+                        "fields": ["Region"],
+                        "bind": "legend"
+                    }
                 }
             };
-            vegaEmbed('#vis1', spec1);
 
-            // Visualization 2: Number of Visitors with Accommodation Availability
-            const spec2 = {
+            // Visualization 1: Average Rating by Region
+            const specRatings = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "description": "Visitors by Accommodation Availability",
+                "description": "Average Rating by Region",
                 "data": { "values": data },
                 "mark": "bar",
                 "width": "container",
                 "height": "container",
                 "encoding": {
-                    "x": { "field": "Accommodation_Available", "type": "nominal", "title": "Accommodation Available" },
+                    "x": { "field": "Region", "type": "nominal", "title": "Region" },
+                    "y": { "aggregate": "mean", "field": "Rating", "type": "quantitative", "title": "Average Rating" },
+                    "color": {
+                        "field": "Region",
+                        "type": "nominal",
+                        "legend": {"title": "Select Region"}
+                    }
+                },
+                "selection": selection["selection"]
+            };
+            vegaEmbed('#visRatings', specRatings);
+
+            // Visualization 2: Number of Visitors by Region
+            const specVisitors = {
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                "description": "Visitors by Region",
+                "data": { "values": data },
+                "mark": "bar",
+                "width": "container",
+                "height": "container",
+                "encoding": {
+                    "x": { "field": "Region", "type": "nominal", "title": "Region" },
                     "y": { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" },
-                    "color": { "field": "Category", "type": "nominal" }
-                }
+                    "color": {
+                        "field": "Region",
+                        "type": "nominal",
+                        "legend": null  // Hide the legend as we already use it in specRatings
+                    }
+                },
+                "selection": selection["selection"]
             };
-            vegaEmbed('#vis2', spec2);
-
-            // Visualization 3: Ratings Distribution by Tourism Category
-            const spec3 = {
-                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "description": "Ratings by Category",
-                "data": { "values": data },
-                "mark": "bar",
-                "width": "container",
-                "height": "container",
-                "encoding": {
-                    "x": { "field": "Category", "type": "nominal", "title": "Tourism Category" },
-                    "y": { "field": "Rating", "type": "quantitative", "title": "Rating" }
-                }
-            };
-            vegaEmbed('#vis3', spec3);
-
-            // Visualization 4: Revenue by Tourism Category
-            const spec4 = {
-                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "description": "Revenue by Category in Australia",
-                "data": { "values": data },
-                "mark": "bar",
-                "width": "container",
-                "height": "container",
-                "encoding": {
-                    "x": { "field": "Category", "type": "nominal", "title": "Tourism Category" },
-                    "y": { "field": "Revenue", "type": "quantitative", "title": "Revenue ($AUD)" }
-                }
-            };
-            vegaEmbed('#vis4', spec4);
+            vegaEmbed('#visVisitors', specVisitors);
         }).catch(error => console.error('Error loading the CSV data:', error));
     };
     document.head.appendChild(d3Script);
