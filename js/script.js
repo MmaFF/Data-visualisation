@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const d3Script = document.createElement('script');
     d3Script.src = "https://d3js.org/d3.v7.min.js";
     d3Script.onload = function() {
+        // Load first CSV file for the original visualizations
         d3.csv("data/Filtered_Australian_Tourism_Data.csv").then(data => {
             // Convert numeric fields appropriately
             data.forEach(d => {
@@ -20,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function() {
             };
 
             // Visualization 1: Average Rating by Category
-            // Specification for Average Rating by Category
             const specRatings = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                 "description": "Average Rating by Category",
@@ -49,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function() {
             vegaEmbed('#visRatings', specRatings);
 
             // Visualization 2: Number of Visitors by Category
-            // Specification for Number of Visitors by Category
             const specVisitors = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                 "description": "Visitors by Category",
@@ -76,23 +75,96 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             };
             vegaEmbed('#visVisitors', specVisitors);
-            // Embed the visualizations
+
+            // Synchronize selections between the two visualizations
             vegaEmbed('#visRatings', specRatings).then((result1) => {
                 vegaEmbed('#visVisitors', specVisitors).then((result2) => {
-                    // Synchronize selections between the two visualizations
                     const view1 = result1.view;
                     const view2 = result2.view;
-                    // Listen to changes in the selection of the first visualization
                     view1.addSignalListener('CategorySelect_tuple', function(name, value) {
                         view2.signal('CategorySelect_tuple', value).run();
                     });
-                    // Listen to changes in the selection of the second visualization
                     view2.addSignalListener('CategorySelect_tuple', function(name, value) {
                         view1.signal('CategorySelect_tuple', value).run();
                     });
                 });
             });
+
         }).catch(error => console.error('Error loading the CSV data:', error));
+
+        // Load second CSV file for the map visualization
+        d3.csv("data/tourism.csv").then(mapData => {
+            // Convert numeric fields appropriately
+            mapData.forEach(d => {
+                d.Visitors = +d.Visitors;
+                d.longitude = +d.longitude; // Assuming longitude field exists in the data
+                d.latitude = +d.latitude; // Assuming latitude field exists in the data
+            });
+
+            // Specification for Map Visualization
+            const specMap = {
+                "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                "description": "Bubble map showing number of visitors by Australian states.",
+                "width": 800,
+                "height": 500,
+                "data": {
+                    "url": "data/ne_10m_admin_0_countries.json",
+                    "format": {
+                        "type": "topojson",
+                        "feature": "countries"
+                    }
+                },
+                "projection": {
+                    "type": "mercator"
+                },
+                "layer": [
+                    {
+                        "mark": {
+                            "type": "geoshape",
+                            "fill": "lightgray",
+                            "stroke": "white"
+                        },
+                        "encoding": {
+                            "shape": {
+                                "field": "geometry",
+                                "type": "geojson"
+                            }
+                        }
+                    },
+                    {
+                        "data": {
+                            "values": mapData
+                        },
+                        "mark": "circle",
+                        "encoding": {
+                            "longitude": {
+                                "field": "longitude",
+                                "type": "quantitative"
+                            },
+                            "latitude": {
+                                "field": "latitude",
+                                "type": "quantitative"
+                            },
+                            "size": {
+                                "field": "Visitors",
+                                "type": "quantitative",
+                                "title": "Number of Visitors"
+                            },
+                            "color": {
+                                "value": "steelblue"
+                            },
+                            "tooltip": [
+                                { "field": "State", "type": "nominal", "title": "State" },
+                                { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
+                            ]
+                        }
+                    }
+                ]
+            };
+
+            // Embed the map visualization
+            vegaEmbed('#visMap', specMap);
+        }).catch(error => console.error('Error loading the tourism CSV data:', error));
     };
     document.head.appendChild(d3Script);
 });
