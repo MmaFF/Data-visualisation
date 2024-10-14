@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 d.Rating = +d.Rating;
             });
 
-            // Define a shared interval selection named "CategorySelect"
+            // Define a shared selection named "CategorySelect"
             const sharedSelection = {
                 "CategorySelect": {
-                    "type": "interval",
-                    "bind": "scales",  // Make it possible to select via dragging or clicking
-                    "encodings": ["x"]  // Allow selection by clicking on bars along the x-axis (Category)
+                    "type": "multi",
+                    "fields": ["Category"],
+                    "bind": "legend"  // Bind selection to the legend to allow selection by clicking the legend
                 }
             };
 
