@@ -92,79 +92,49 @@ document.addEventListener("DOMContentLoaded", function() {
 
         }).catch(error => console.error('Error loading the CSV data:', error));
 
-        // Load second CSV file for the map visualization
-        d3.csv("data/tourism.csv").then(mapData => {
-            // Convert numeric fields appropriately
-            mapData.forEach(d => {
-                d.Trips = +d.Trips;
-                d.longitude = +d.longitude; // Assuming longitude field exists in the data
-                d.latitude = +d.latitude; // Assuming latitude field exists in the data
+        // Load faceted chart from the new CSV file
+        d3.csv("data/2.1 Short-term visitor arrivals.csv").then(facetData => {
+            // Convert numeric fields appropriately if needed
+            facetData.forEach(d => {
+                d.Visitors = +d.Visitors;
             });
 
-            // Specification for Map Visualization
-            const specMap = {
+            // Specification for Faceted Chart Visualization
+            const specFaceted = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "description": "Bubble map showing number of Trips by Australian states.",
-                "width": 800,
-                "height": 500,
-                "data": {
-                    "url": "js/ne_10m_admin_0_countries2.topojson",
-                    "format": {
-                        "type": "topojson",
-                        "feature": "ne_10m_admin_0_countries2"
-                    }
+                "description": "Faceted chart showing number of visitors by reason over time.",
+                "data": { "values": facetData },
+                "width": 300,
+                "height": 200,
+                "facet": {
+                    "field": "Reason",
+                    "type": "nominal"
                 },
-                "projection": {
-                    "type": "mercator"
-                },
-                "layer": [
-                    {
-                        "mark": {
-                            "type": "geoshape",
-                            "fill": "lightgray",
-                            "stroke": "white"
+                "spec": {
+                    "mark": "line",
+                    "encoding": {
+                        "x": {
+                            "field": "Date",
+                            "type": "temporal",
+                            "title": "Date"
                         },
-                        "encoding": {
-                            "shape": {
-                                "field": "geometry",
-                                "type": "geojson"
-                            }
-                        }
-                    },
-                    {
-                        "data": {
-                            "values": mapData
+                        "y": {
+                            "field": "Visitors",
+                            "type": "quantitative",
+                            "title": "Number of Visitors"
                         },
-                        "mark": "circle",
-                        "encoding": {
-                            "longitude": {
-                                "field": "longitude",
-                                "type": "quantitative"
-                            },
-                            "latitude": {
-                                "field": "latitude",
-                                "type": "quantitative"
-                            },
-                            "size": {
-                                "field": "Trips",
-                                "type": "quantitative",
-                                "title": "Number of Trips"
-                            },
-                            "color": {
-                                "value": "steelblue"
-                            },
-                            "tooltip": [
-                                { "field": "State", "type": "nominal", "title": "State" },
-                                { "field": "Trips", "type": "quantitative", "title": "Number of Trips" }
-                            ]
-                        }
+                        "tooltip": [
+                            { "field": "Date", "type": "temporal", "title": "Date" },
+                            { "field": "Reason", "type": "nominal", "title": "Reason" },
+                            { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
+                        ]
                     }
-                ]
+                }
             };
 
-            // Embed the map visualization
-            vegaEmbed('#visMap', specMap);
-        }).catch(error => console.error('Error loading the tourism CSV data:', error));
+            // Embed the faceted chart visualization
+            vegaEmbed('#visFaceted', specFaceted).catch(console.error);
+        }).catch(error => console.error('Error loading the faceted CSV data:', error));
     };
     document.head.appendChild(d3Script);
 });
