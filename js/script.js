@@ -92,49 +92,43 @@ document.addEventListener("DOMContentLoaded", function() {
 
         }).catch(error => console.error('Error loading the CSV data:', error));
 
-        // Load scatter plot from the new CSV file
-        d3.csv("data/2.1 Short-term visitor arrivals.csv").then(scatterData => {
+        // Load time series data from the new CSV file
+        d3.csv("data/2.1 Short-term visitor arrivals.csv").then(timeSeriesData => {
             // Convert numeric fields appropriately if needed
-            scatterData.forEach(d => {
-                d.Visitors = +d.Visitors;
-                d.Rating = +d.Rating;
+            timeSeriesData.forEach(d => {
+                d.trip = +d.trip;
             });
 
-            // Specification for Scatter Plot Visualization
-            const specScatter = {
+            // Specification for Time Series Line Chart
+            const specTimeSeries = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "description": "Scatter plot showing relationship between rating and number of visitors.",
-                "data": { "values": scatterData },
-                "mark": "point",
-                "width": 600,
+                "description": "Line chart showing number of trips over time.",
+                "data": { "values": timeSeriesData },
+                "mark": "line",
+                "width": 800,
                 "height": 400,
                 "encoding": {
                     "x": {
-                        "field": "Rating",
-                        "type": "quantitative",
-                        "title": "Average Rating"
+                        "field": "data",
+                        "type": "temporal",
+                        "title": "Date",
+                        "axis": { "labelAngle": -45 }
                     },
                     "y": {
-                        "field": "Visitors",
+                        "field": "trip",
                         "type": "quantitative",
-                        "title": "Number of Visitors"
-                    },
-                    "color": {
-                        "field": "Category",
-                        "type": "nominal",
-                        "title": "Category"
+                        "title": "Number of Trips"
                     },
                     "tooltip": [
-                        { "field": "Category", "type": "nominal", "title": "Category" },
-                        { "field": "Rating", "type": "quantitative", "title": "Average Rating" },
-                        { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
+                        { "field": "data", "type": "temporal", "title": "Date" },
+                        { "field": "trip", "type": "quantitative", "title": "Number of Trips" }
                     ]
                 }
             };
 
-            // Embed the scatter plot visualization
-            vegaEmbed('#visScatter', specScatter).catch(console.error);
-        }).catch(error => console.error('Error loading the scatter CSV data:', error));
+            // Embed the time series line chart visualization
+            vegaEmbed('#visTimeSeries', specTimeSeries).catch(console.error);
+        }).catch(error => console.error('Error loading the CSV data:', error));
     };
     document.head.appendChild(d3Script);
 });
