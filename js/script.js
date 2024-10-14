@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
         d3.csv("data/tourism.csv").then(mapData => {
             // Convert numeric fields appropriately
             mapData.forEach(d => {
-                d.Visitors = +d.Visitors;
+                d.Trips = +d.Trips;
                 d.longitude = +d.longitude; // Assuming longitude field exists in the data
                 d.latitude = +d.latitude; // Assuming latitude field exists in the data
             });
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     "url": "js/ne_10m_admin_0_countries2.topojson",
                     "format": {
                         "type": "topojson",
-                        "feature": "countries"
+                        "feature": "ne_10m_admin_0_countries2"
                     }
                 },
                 "projection": {
