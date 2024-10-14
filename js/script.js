@@ -10,14 +10,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 d.Rating = +d.Rating;
             });
 
-            // Create a selection that can be used for filtering both charts
+            // Define a selection named "CategorySelect"
             const selection = {
-                "selection": {
-                    "CategorySelect": {
-                        "type": "multi",
-                        "fields": ["Category"],
-                        "bind": "legend"
-                    }
+                "CategorySelect": {
+                    "type": "multi",
+                    "fields": ["Category"],
+                    "bind": "legend"
                 }
             };
 
@@ -29,16 +27,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 "mark": "bar",
                 "width": "container",
                 "height": "container",
+                "selection": selection,
                 "encoding": {
                     "x": { "field": "Category", "type": "nominal", "title": "Category" },
                     "y": { "aggregate": "mean", "field": "Rating", "type": "quantitative", "title": "Average Rating" },
                     "color": {
-                        "field": "Category",
-                        "type": "nominal",
-                        "legend": {"title": "Select Category"}
+                        "condition": {
+                            "selection": "CategorySelect",
+                            "field": "Category",
+                            "type": "nominal"
+                        },
+                        "value": "lightgray"  // Unselected bars are gray
                     }
-                },
-                "selection": selection["selection"]
+                }
             };
             vegaEmbed('#visRatings', specRatings);
 
@@ -50,16 +51,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 "mark": "bar",
                 "width": "container",
                 "height": "container",
+                "selection": selection,
                 "encoding": {
                     "x": { "field": "Category", "type": "nominal", "title": "Category" },
                     "y": { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" },
                     "color": {
-                        "field": "Category",
-                        "type": "nominal",
-                        "legend": null  // Hide the legend as we already use it in specRatings
+                        "condition": {
+                            "selection": "CategorySelect",
+                            "field": "Category",
+                            "type": "nominal"
+                        },
+                        "value": "lightgray"  // Unselected bars are gray
                     }
-                },
-                "selection": selection["selection"]
+                }
             };
             vegaEmbed('#visVisitors', specVisitors);
         }).catch(error => console.error('Error loading the CSV data:', error));
