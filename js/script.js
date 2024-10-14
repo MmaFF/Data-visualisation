@@ -92,49 +92,49 @@ document.addEventListener("DOMContentLoaded", function() {
 
         }).catch(error => console.error('Error loading the CSV data:', error));
 
-        // Load faceted chart from the new CSV file
-        d3.csv("data/2.1 Short-term visitor arrivals.csv").then(facetData => {
+        // Load scatter plot from the new CSV file
+        d3.csv("data/2.1 Short-term visitor arrivals.csv").then(scatterData => {
             // Convert numeric fields appropriately if needed
-            facetData.forEach(d => {
+            scatterData.forEach(d => {
                 d.Visitors = +d.Visitors;
+                d.Rating = +d.Rating;
             });
 
-            // Specification for Faceted Chart Visualization
-            const specFaceted = {
+            // Specification for Scatter Plot Visualization
+            const specScatter = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "description": "Faceted chart showing number of visitors by reason over time.",
-                "data": { "values": facetData },
-                "width": 300,
-                "height": 200,
-                "facet": {
-                    "field": "Reason",
-                    "type": "nominal"
-                },
-                "spec": {
-                    "mark": "line",
-                    "encoding": {
-                        "x": {
-                            "field": "Date",
-                            "type": "temporal",
-                            "title": "Date"
-                        },
-                        "y": {
-                            "field": "Visitors",
-                            "type": "quantitative",
-                            "title": "Number of Visitors"
-                        },
-                        "tooltip": [
-                            { "field": "Date", "type": "temporal", "title": "Date" },
-                            { "field": "Reason", "type": "nominal", "title": "Reason" },
-                            { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
-                        ]
-                    }
+                "description": "Scatter plot showing relationship between rating and number of visitors.",
+                "data": { "values": scatterData },
+                "mark": "point",
+                "width": 600,
+                "height": 400,
+                "encoding": {
+                    "x": {
+                        "field": "Rating",
+                        "type": "quantitative",
+                        "title": "Average Rating"
+                    },
+                    "y": {
+                        "field": "Visitors",
+                        "type": "quantitative",
+                        "title": "Number of Visitors"
+                    },
+                    "color": {
+                        "field": "Category",
+                        "type": "nominal",
+                        "title": "Category"
+                    },
+                    "tooltip": [
+                        { "field": "Category", "type": "nominal", "title": "Category" },
+                        { "field": "Rating", "type": "quantitative", "title": "Average Rating" },
+                        { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
+                    ]
                 }
             };
 
-            // Embed the faceted chart visualization
-            vegaEmbed('#visFaceted', specFaceted).catch(console.error);
-        }).catch(error => console.error('Error loading the faceted CSV data:', error));
+            // Embed the scatter plot visualization
+            vegaEmbed('#visScatter', specScatter).catch(console.error);
+        }).catch(error => console.error('Error loading the scatter CSV data:', error));
     };
     document.head.appendChild(d3Script);
 });
