@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Specification for Map Visualization
             const specMap = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-                "description": "Bubble map showing number of visitors by Australian states.",
+                "description": "Bubble map showing number of Trips by Australian states.",
                 "width": 800,
                 "height": 500,
                 "data": {
@@ -146,16 +146,16 @@ document.addEventListener("DOMContentLoaded", function() {
                                 "type": "quantitative"
                             },
                             "size": {
-                                "field": "Visitors",
+                                "field": "Trips",
                                 "type": "quantitative",
-                                "title": "Number of Visitors"
+                                "title": "Number of Trips"
                             },
                             "color": {
                                 "value": "steelblue"
                             },
                             "tooltip": [
                                 { "field": "State", "type": "nominal", "title": "State" },
-                                { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
+                                { "field": "Trips", "type": "quantitative", "title": "Number of Trips" }
                             ]
                         }
                     }
