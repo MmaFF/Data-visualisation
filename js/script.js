@@ -97,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Convert numeric fields appropriately if needed
             timeSeriesData.forEach(d => {
                 d.trip = +d.trip;
+                d.data = d3.timeParse("%b-%y")(d.data);  // Parse the "month-year" format
             });
 
             // Specification for Time Series Line Chart
