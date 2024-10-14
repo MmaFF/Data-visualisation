@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             };
 
-            // Visualization 1: Average Rating by Category
+            // Specification for Average Rating by Category
             const specRatings = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                 "description": "Average Rating by Category",
@@ -45,9 +45,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     ]
                 }
             };
-            vegaEmbed('#visRatings', specRatings);
 
-            // Visualization 2: Number of Visitors by Category
+            // Specification for Number of Visitors by Category
             const specVisitors = {
                 "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                 "description": "Visitors by Category",
@@ -73,7 +72,26 @@ document.addEventListener("DOMContentLoaded", function() {
                     ]
                 }
             };
-            vegaEmbed('#visVisitors', specVisitors);
+
+            // Embed the visualizations
+            vegaEmbed('#visRatings', specRatings).then((result1) => {
+                vegaEmbed('#visVisitors', specVisitors).then((result2) => {
+                    // Synchronize selections between the two visualizations
+                    const view1 = result1.view;
+                    const view2 = result2.view;
+
+                    // Listen to changes in the selection of the first visualization
+                    view1.addSignalListener('CategorySelect_tuple', function(name, value) {
+                        view2.signal('CategorySelect_tuple', value).run();
+                    });
+
+                    // Listen to changes in the selection of the second visualization
+                    view2.addSignalListener('CategorySelect_tuple', function(name, value) {
+                        view1.signal('CategorySelect_tuple', value).run();
+                    });
+                });
+            });
+
         }).catch(error => console.error('Error loading the CSV data:', error));
     };
     document.head.appendChild(d3Script);
