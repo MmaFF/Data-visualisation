@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 "width": 800,
                 "height": 500,
                 "data": {
-                    "url": "data/ne_10m_admin_0_countries.json",
+                    "url": "ne_10m_admin_0_countries2.topojson",
                     "format": {
                         "type": "topojson",
                         "feature": "countries"
