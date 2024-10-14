@@ -10,11 +10,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 d.Rating = +d.Rating;
             });
 
-            // Define a shared selection named "CategorySelect"
+            // Define a selection named "CategorySelect"
             const selection = {
                 "CategorySelect": {
-                    "type": "interval",
-                    "encodings": ["x"]  // Allow selection by clicking on bars along the x-axis (Category)
+                    "type": "multi",
+                    "fields": ["Category"],
+                    "bind": "legend"
                 }
             };
 
