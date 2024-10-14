@@ -10,12 +10,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 d.Rating = +d.Rating;
             });
 
-            // Define a selection named "CategorySelect"
-            const selection = {
+            // Define a shared selection named "CategorySelect"
+            const sharedSelection = {
                 "CategorySelect": {
-                    "type": "multi",
-                    "fields": ["Category"],
-                    "bind": "legend"
+                    "type": "interval",
+                    "encodings": ["x"]  // Allow selection by clicking on bars along the x-axis (Category)
                 }
             };
 
@@ -27,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 "mark": "bar",
                 "width": "container",
                 "height": "container",
-                "selection": selection,
+                "selection": sharedSelection,
                 "encoding": {
                     "x": { "field": "Category", "type": "nominal", "title": "Category" },
                     "y": { "aggregate": "mean", "field": "Rating", "type": "quantitative", "title": "Average Rating" },
@@ -38,7 +37,11 @@ document.addEventListener("DOMContentLoaded", function() {
                             "type": "nominal"
                         },
                         "value": "lightgray"  // Unselected bars are gray
-                    }
+                    },
+                    "tooltip": [
+                        { "field": "Category", "type": "nominal", "title": "Category" },
+                        { "aggregate": "mean", "field": "Rating", "type": "quantitative", "title": "Average Rating" }
+                    ]
                 }
             };
             vegaEmbed('#visRatings', specRatings);
@@ -51,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 "mark": "bar",
                 "width": "container",
                 "height": "container",
-                "selection": selection,
+                "selection": sharedSelection,
                 "encoding": {
                     "x": { "field": "Category", "type": "nominal", "title": "Category" },
                     "y": { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" },
@@ -62,7 +65,11 @@ document.addEventListener("DOMContentLoaded", function() {
                             "type": "nominal"
                         },
                         "value": "lightgray"  // Unselected bars are gray
-                    }
+                    },
+                    "tooltip": [
+                        { "field": "Category", "type": "nominal", "title": "Category" },
+                        { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
+                    ]
                 }
             };
             vegaEmbed('#visVisitors', specVisitors);
