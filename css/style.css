@@ -23,7 +23,12 @@ h2 {
 
 .chart {
     width: 100%;
-    height: 500px;
+    height: 400px;
+}
+
+#visVisitors, #visCultureRating {
+    width: 80%;
+    height: 300px;
 }
 
 .intro {
