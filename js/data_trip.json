@@ -1,7 +1,15 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Line Chart Showing Number of Trips Over Time",
-    "data": { "url": "data/2.1 Short-term visitor arrivals.csv" },
+    "data": {
+        "url": "data/2.1 Short-term visitor arrivals.csv",
+        "format": {
+            "type": "csv",
+            "parse": {
+                "date": "utc:'%b-%Y'"
+            }
+        }
+    },
     "mark": "line",
     "width": 800,
     "height": 400,
@@ -10,8 +18,7 @@
             "field": "date",
             "type": "temporal",
             "title": "Date",
-            "axis": { "labelAngle": -45 },
-            "timeUnit": "yearmonth" 
+            "axis": { "labelAngle": -45 }
         },
         "y": {
             "field": "trip",
