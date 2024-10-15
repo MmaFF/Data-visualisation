@@ -20,19 +20,19 @@
 
     <script>
         // Load the Choropleth Map Visualization
-        vegaEmbed('#visMap', 'tourism_map.json').catch(console.error);
+        vegaEmbed('#visMap', 'js/tourism_map.json').catch(console.error);
 
         // Load the Time Series Line Chart
-        vegaEmbed('#visTimeSeries', 'data_trip.json').catch(console.error);
+        vegaEmbed('#visTimeSeries', 'js/data_trip.json').catch(console.error);
 
         // Load the Average Rating by Category Chart
-        vegaEmbed('#visCultureRating', 'culture_data.json').then((result) => {
+        vegaEmbed('#visCultureRating', 'js/culture_data.json').then((result) => {
             // Since culture_data.json has two charts, render both in separate containers.
             result.view.insert("view_0", "#visCultureRating").run();
         }).catch(console.error);
 
         // Load the Visitors by Category Chart
-        vegaEmbed('#visVisitors', 'culture_data.json').then((result) => {
+        vegaEmbed('#visVisitors', 'js/culture_data.json').then((result) => {
             result.view.insert("view_1", "#visVisitors").run();
         }).catch(console.error);
     </script>
