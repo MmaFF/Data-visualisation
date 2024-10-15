@@ -20,7 +20,7 @@
             "title": "Date",
             "axis": {
                 "labelAngle": -45,
-                "format": "%b-%Y"
+                "format": "%b %Y"
             }
         },
         "y": {
