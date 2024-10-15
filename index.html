@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Australian Tourism Data Visualizations - Interactive Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
@@ -21,15 +21,26 @@
     <script>
         // Load the Choropleth Map Visualization
         vegaEmbed('#visMap', 'js/tourism_map.json').catch(console.error);
-    
+
         // Load the Time Series Line Chart
         vegaEmbed('#visTimeSeries', 'js/data_trip.json').catch(console.error);
-    
-        // Load the Average Rating by Category Chart (first chart in culture_data.json)
-        vegaEmbed('#visCultureRating', 'js/culture_data.json', { view: { index: 0 } }).catch(console.error);
-    
-        // Load the Visitors by Category Chart (second chart in culture_data.json)
-        vegaEmbed('#visVisitors', 'js/culture_data.json', { view: { index: 1 } }).catch(console.error);
+
+        // Define the first chart and capture the selection signal
+        vegaEmbed('#visCultureRating', 'js/culture_rating.json').then(result => {
+            const view1 = result.view;
+            const selectedSignal = view1.getState({
+                data: {},
+                signals: ['CategorySelect']
+            });
+
+            // Load the second chart with linked signal
+            vegaEmbed('#visVisitors', 'js/culture_data.json').then(result2 => {
+                const view2 = result2.view;
+
+                // Apply the signal from the first chart to the second chart's filter
+                view2.signal('CategorySelect', selectedSignal).run();
+            }).catch(console.error);
+        }).catch(console.error);
     </script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Average Rating by Category",
+    "data": { "url": "data/Filtered_Australian_Tourism_Data.csv" },
+    "mark": "bar",
+    "width": "container",
+    "height": "container",
+    "selection": {
+      "CategorySelect": {
+        "type": "multi",
+        "fields": ["Category"],
+        "bind": "legend",
+        "on": "click"
+      }
+    },
+    "encoding": {
+      "x": { "field": "Category", "type": "nominal", "title": "Category" },
+      "y": { "aggregate": "mean", "field": "Rating", "type": "quantitative", "title": "Average Rating" },
+      "color": {
+        "condition": {
+          "selection": "CategorySelect",
+          "field": "Category",
+          "type": "nominal"
+        },
+        "value": "lightgray"
+      },
+      "tooltip": [
+        { "field": "Category", "type": "nominal", "title": "Category" },
+        { "aggregate": "mean", "field": "Rating", "type": "quantitative", "title": "Average Rating" }
+      ]
+    }
+  }
