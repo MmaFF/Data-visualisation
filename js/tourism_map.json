@@ -8,48 +8,42 @@
       "feature": "AUS_state"
     }
   },
-  "layer": [
+  "transform": [
     {
-      "mark": {
-        "type": "geoshape",
-        "stroke": "white"
-      },
-      "projection": {
-        "type": "mercator"
-      },
-      "encoding": {
-        "color": {
-          "value": "#e0e0e0" 
+      "lookup": "properties.name",
+      "from": {
+        "data": {
+          "url": "data/2.3 Short-term visitor arrivals, state or territory of stay - July 2024.csv",
+          "format": {
+            "type": "csv"
+          }
         },
-        "tooltip": [
-          { "field": "properties.name", "type": "nominal", "title": "State" }
-        ]
-      }
-    },
-    {
-      "data": {
-        "url": "data/tourism.csv",
-        "format": {
-          "type": "csv"
-        }
-      },
-      "mark": {
-        "type": "circle",
-        "opacity": 0.6,
-        "stroke": "black"
-      },
-      "encoding": {
-        "longitude": { "field": "longitude", "type": "quantitative" },
-        "latitude": { "field": "latitude", "type": "quantitative" },
-        "size": { "field": "trips", "type": "quantitative", "title": "Number of Trips" },
-        "color": { "value": "#ff0000" },
-        "tooltip": [
-          { "field": "state", "type": "nominal", "title": "State" },
-          { "field": "trips", "type": "quantitative", "title": "Number of Trips" }
-        ]
+        "key": "region",
+        "fields": ["trips"]
       }
     }
   ],
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white"
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "encoding": {
+    "color": {
+      "field": "trips",
+      "type": "quantitative",
+      "title": "Number of Trips",
+      "scale": {
+        "scheme": "blues"
+      }
+    },
+    "tooltip": [
+      { "field": "properties.name", "type": "nominal", "title": "State" },
+      { "field": "trips", "type": "quantitative", "title": "Number of Trips" }
+    ]
+  },
   "width": 800,
   "height": 600
 }
