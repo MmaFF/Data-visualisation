@@ -18,7 +18,10 @@
             "field": "date",
             "type": "temporal",
             "title": "Date",
-            "axis": { "labelAngle": -45 }
+            "axis": {
+                "labelAngle": -45,
+                "format": "%b-%Y"
+            }
         },
         "y": {
             "field": "trip",
