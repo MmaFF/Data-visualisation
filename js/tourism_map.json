@@ -1,23 +1,28 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Choropleth Map Showing Number of Trips per State",
-    "data": {
-      "url": "data/AUS_state.topojson",
-      "format": { "type": "topojson", "feature": "AUS_state" }
-    },
-    "mark": { "type": "geoshape", "stroke": "white" },
-    "projection": { "type": "mercator" },
-    "width": 600,
-    "height": 400,
-    "encoding": {
-      "color": {
-        "field": "trips",
-        "type": "quantitative",
-        "title": "Number of Trips"
-      },
-      "tooltip": [
-        { "field": "state", "type": "nominal", "title": "State" },
-        { "field": "trips", "type": "quantitative", "title": "Number of Trips" }
-      ]
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Choropleth Map Showing Australian States",
+  "data": {
+    "url": "data/AUS_state.topojson",
+    "format": {
+      "type": "topojson",
+      "feature": "AUS_state"
     }
-  }
+  },
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white"
+  },
+  "projection": {
+    "type": "mercator"
+  },
+  "encoding": {
+    "color": {
+      "value": "#e0e0e0" 
+    },
+    "tooltip": [
+      { "field": "properties.name", "type": "nominal", "title": "State" }
+    ]
+  },
+  "width": 800,
+  "height": 600
+}
