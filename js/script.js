@@ -130,6 +130,79 @@ document.addEventListener("DOMContentLoaded", function() {
             // Embed the time series line chart visualization
             vegaEmbed('#visTimeSeries', specTimeSeries).catch(console.error);
         }).catch(error => console.error('Error loading the CSV data:', error));
+
+        d3.csv("data/tourism.csv").then(tourismData => {
+            tourismData.forEach(d => {
+                d.trips = +d.trips;
+                d.quarter = d3.timeParse("%Y-Q%q")(d.quarter);  // Assuming the format is "2023-Q1"
+            });
+        
+            // Load TopoJSON for Australia state boundaries
+            d3.json("data/AUS_state.topojson").then(geoData => {
+                // Specification for Choropleth Map with Time Axis
+                const specMap = {
+                    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                    "description": "Choropleth map showing number of trips per state over time.",
+                    "data": {
+                        "values": tourismData,
+                        "format": { "type": "topojson", "feature": "states" }
+                    },
+                    "mark": {
+                        "type": "geoshape",
+                        "stroke": "white"
+                    },
+                    "projection": {
+                        "type": "mercator"
+                    },
+                    "encoding": {
+                        "color": {
+                            "field": "trips",
+                            "type": "quantitative",
+                            "title": "Number of Trips"
+                        },
+                        "tooltip": [
+                            { "field": "state", "type": "nominal", "title": "State" },
+                            { "field": "trips", "type": "quantitative", "title": "Number of Trips" }
+                        ]
+                    },
+                    "width": 600,
+                    "height": 400
+                };
+        
+                // Embed the map visualization
+                vegaEmbed('#visMap', specMap).catch(console.error);
+        
+                // Add scatter plot for comparison with the map
+                const specScatter = {
+                    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                    "description": "Scatter plot comparing trips across states.",
+                    "data": { "values": tourismData },
+                    "mark": "point",
+                    "width": 600,
+                    "height": 400,
+                    "encoding": {
+                        "x": {
+                            "field": "quarter",
+                            "type": "temporal",
+                            "title": "Quarter"
+                        },
+                        "y": {
+                            "field": "trips",
+                            "type": "quantitative",
+                            "title": "Number of Trips"
+                        },
+                        "color": { "field": "state", "type": "nominal", "title": "State" },
+                        "tooltip": [
+                            { "field": "state", "type": "nominal", "title": "State" },
+                            { "field": "trips", "type": "quantitative", "title": "Number of Trips" }
+                        ]
+                    }
+                };
+        
+                // Embed the scatter plot visualization
+                vegaEmbed('#visScatter', specScatter).catch(console.error);
+            }).catch(error => console.error('Error loading the TopoJSON data:', error));
+        }).catch(error => console.error('Error loading the CSV data:', error));
     };
     document.head.appendChild(d3Script);
 });
