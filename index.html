@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Australian Tourism Data Visualizations - Interactive Dashboard</title>
+    <title>Australian tourism trends and regional analysis</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
@@ -16,6 +16,7 @@
         <div id="visCultureCharts" class="chart"></div> <!-- 这个容器包含了两个条形图 -->
         <div id="visMap" class="chart"></div>
     </div>
+
     <script>
         // Load the Time Series Line Chart
         vegaEmbed('#visTimeSeries', 'js/data_trip.json').catch(console.error);
