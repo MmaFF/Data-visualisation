@@ -13,20 +13,18 @@
     <h2>Australian Tourism Data - Region-wise Interaction</h2>
     <div class="grid-container">
         <div id="visTimeSeries" class="chart"></div>
-        <div id="visVisitors" class="chart"></div>
-        <div id="visCultureRating" class="chart"></div>
+        <div id="visCultureCharts" class="chart"></div> <!-- 这个容器包含了两个条形图 -->
         <div id="visMap" class="chart"></div>
     </div>
-
     <script>
-        // Load the Choropleth Map Visualization
-        vegaEmbed('#visMap', 'js/tourism_map.json').catch(console.error);
-
         // Load the Time Series Line Chart
         vegaEmbed('#visTimeSeries', 'js/data_trip.json').catch(console.error);
-
-        // Define the first chart and capture the selection signal
-        vegaEmbed('#visCultureRating', 'js/culture_data.json', { view: { index: 0 } }).catch(console.error);
+    
+        // Load the Combined Cultural Rating and Visitors by Category Charts
+        vegaEmbed('#visCultureCharts', 'js/culture_data.json').catch(console.error);
+    
+        // Load the Choropleth Map Visualization
+        vegaEmbed('#visMap', 'js/tourism_map.json').catch(console.error);
     </script>
 </body>
 </html>

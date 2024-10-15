@@ -15,8 +15,8 @@ h2 {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
     grid-gap: 20px;
     padding: 20px;
     height: 100vh;
@@ -28,18 +28,18 @@ h2 {
 }
 
 #visTimeSeries {
-    grid-column: 1 / span 4; 
-    grid-row: 1; 
+    grid-column: 1 / span 2;
+    grid-row: 1;
 }
 
-#visVisitors, #visCultureRating {
-    grid-column: span 2; 
+#visCultureCharts {
+    grid-column: 1; 
     grid-row: 2; 
 }
 
 #visMap {
-    grid-column: 1 / span 4; 
-    grid-row: 3; 
+    grid-column: 2;
+    grid-row: 2;
     height: 500px;
 }
 .intro {
