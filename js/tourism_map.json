@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Choropleth Map Showing Australian States",
+  "title": "Choropleth Map Showing Australian States with Tourism Data",
   "data": {
     "url": "js/AUS_state.topojson",
     "format": {
@@ -8,21 +8,47 @@
       "feature": "AUS_state"
     }
   },
-  "mark": {
-    "type": "geoshape",
-    "stroke": "white"
-  },
-  "projection": {
-    "type": "mercator"
-  },
-  "encoding": {
-    "color": {
-      "value": "#e0e0e0" 
+  "layer": [
+    {
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white"
+      },
+      "projection": {
+        "type": "mercator"
+      },
+      "encoding": {
+        "color": {
+          "value": "#e0e0e0" 
+        },
+        "tooltip": [
+          { "field": "properties.name", "type": "nominal", "title": "State" }
+        ]
+      }
     },
-    "tooltip": [
-      { "field": "properties.name", "type": "nominal", "title": "State" }
-    ]
-  },
+    {
+      "data": {
+        "url": "data/tourism.csv",
+        "format": {
+          "type": "csv"
+        }
+      },
+      "mark": {
+        "type": "circle",
+        "opacity": 0.6,
+        "stroke": "black"
+      },
+      "encoding": {
+        "longitude": { "field": "longitude", "type": "quantitative" },
+        "latitude": { "field": "latitude", "type": "quantitative" },
+        "size": { "field": "trips", "type": "quantitative", "title": "Number of Trips" },
+        "tooltip": [
+          { "field": "state", "type": "nominal", "title": "State" },
+          { "field": "trips", "type": "quantitative", "title": "Number of Trips" }
+        ]
+      }
+    }
+  ],
   "width": 800,
   "height": 600
 }
