@@ -4,7 +4,10 @@
     "data": {
         "url": "data/2.1 Short-term visitor arrivals.csv",
         "format": {
-            "type": "csv"
+            "type": "csv",
+            "parse": {
+                "date": "utc:'%b-%Y'"
+            }
         }
     },
     "mark": "line",
@@ -29,11 +32,5 @@
             { "field": "date", "type": "temporal", "title": "Date", "format": "%b %Y" },
             { "field": "trip", "type": "quantitative", "title": "Number of Trips" }
         ]
-    },
-    "selection": {
-        "brush": {
-            "type": "interval",
-            "encodings": ["x"]
-        }
     }
 }
