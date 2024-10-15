@@ -26,21 +26,7 @@
         vegaEmbed('#visTimeSeries', 'js/data_trip.json').catch(console.error);
 
         // Define the first chart and capture the selection signal
-        vegaEmbed('#visCultureRating', 'js/culture_rating.json').then(result => {
-            const view1 = result.view;
-            const selectedSignal = view1.getState({
-                data: {},
-                signals: ['CategorySelect']
-            });
-
-            // Load the second chart with linked signal
-            vegaEmbed('#visVisitors', 'js/culture_data.json').then(result2 => {
-                const view2 = result2.view;
-
-                // Apply the signal from the first chart to the second chart's filter
-                view2.signal('CategorySelect', selectedSignal).run();
-            }).catch(console.error);
-        }).catch(console.error);
+        vegaEmbed('#visCultureRating', 'js/culture_data.json', { view: { index: 0 } }).catch(console.error);
     </script>
 </body>
 </html>

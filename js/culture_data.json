@@ -1,27 +1,62 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Visitors by Category",
-    "data": { "url": "data/Filtered_Australian_Tourism_Data.csv" },
-    "transform": [
+    "vconcat": [
       {
-        "filter": {
-          "selection": "CategorySelect"
+        "title": "Average Rating by Category",
+        "data": { "url": "data/Filtered_Australian_Tourism_Data.csv" },
+        "mark": "bar",
+        "selection": {
+          "CategorySelect": {
+            "type": "multi",
+            "fields": ["Category"],
+            "bind": "legend",
+            "on": "click"
+          }
+        },
+        "encoding": {
+          "x": { "field": "Category", "type": "nominal", "title": "Category" },
+          "y": { "aggregate": "mean", "field": "Rating", "type": "quantitative", "title": "Average Rating" },
+          "color": {
+            "condition": {
+              "selection": "CategorySelect",
+              "field": "Category",
+              "type": "nominal"
+            },
+            "value": "lightgray"
+          },
+          "tooltip": [
+            { "field": "Category", "type": "nominal", "title": "Category" },
+            { "aggregate": "mean", "field": "Rating", "type": "quantitative", "title": "Average Rating" }
+          ]
+        }
+      },
+      {
+        "title": "Visitors by Category",
+        "data": { "url": "data/Filtered_Australian_Tourism_Data.csv" },
+        "mark": "bar",
+        "transform": [
+          {
+            "filter": {
+              "selection": "CategorySelect"
+            }
+          }
+        ],
+        "encoding": {
+          "x": { "field": "Category", "type": "nominal", "title": "Category" },
+          "y": { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" },
+          "color": {
+            "condition": {
+              "selection": "CategorySelect",
+              "field": "Category",
+              "type": "nominal"
+            },
+            "value": "lightgray"
+          },
+          "tooltip": [
+            { "field": "Category", "type": "nominal", "title": "Category" },
+            { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
+          ]
         }
       }
-    ],
-    "mark": "bar",
-    "width": "container",
-    "height": "container",
-    "encoding": {
-      "x": { "field": "Category", "type": "nominal", "title": "Category" },
-      "y": { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" },
-      "color": {
-        "field": "Category",
-        "type": "nominal"
-      },
-      "tooltip": [
-        { "field": "Category", "type": "nominal", "title": "Category" },
-        { "field": "Visitors", "type": "quantitative", "title": "Number of Visitors" }
-      ]
-    }
+    ]
   }
