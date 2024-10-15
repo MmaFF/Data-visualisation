@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Choropleth Map Showing Australian States with Tourism Data",
+  "title": "Short-term tourism data for different states",
   "data": {
     "url": "js/AUS_state.topojson",
     "format": {

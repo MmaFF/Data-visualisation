@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Line Chart Showing Number of Trips Over Time",
+    "title": "Number of trips per month from 15 to 24 years",
     "data": {
         "url": "data/2.1 Short-term visitor arrivals.csv",
         "format": {
