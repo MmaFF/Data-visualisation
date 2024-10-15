@@ -41,7 +41,7 @@
     },
     "tooltip": [
       { "field": "properties.name_en", "type": "nominal", "title": "State" },
-      { "field": "trips", "type": "quantitative", "title": "Number of Trips" }
+      { "field": "trips", "type": "quantitative", "title": "Number of Trips", "format": "," }
     ]
   },
   "width": 800,
