@@ -41,10 +41,10 @@
       "encoding": {
         "longitude": { "field": "longitude", "type": "quantitative" },
         "latitude": { "field": "latitude", "type": "quantitative" },
-        "size": { "field": "trip", "type": "quantitative", "title": "Number of Trips" },
+        "size": { "field": "trips", "type": "quantitative", "title": "Number of Trips" },
         "tooltip": [
           { "field": "state", "type": "nominal", "title": "State" },
-          { "field": "trip", "type": "quantitative", "title": "Number of Trips" }
+          { "field": "trips", "type": "quantitative", "title": "Number of Trips" }
         ]
       }
     }
