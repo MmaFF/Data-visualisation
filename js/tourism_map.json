@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Choropleth Map Showing Australian States",
   "data": {
-    "url": "data/AUS_state.topojson",
+    "url": "js/AUS_state.topojson",
     "format": {
       "type": "topojson",
       "feature": "AUS_state"
