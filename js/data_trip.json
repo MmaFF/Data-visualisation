@@ -29,7 +29,7 @@
             "title": "Number of Trips"
         },
         "tooltip": [
-            { "field": "date", "type": "temporal", "title": "Date", "format": "%b-%Y" },
+            { "field": "date", "type": "temporal", "title": "Date", "format": "%b %Y" },
             { "field": "trip", "type": "quantitative", "title": "Number of Trips" }
         ]
     }
