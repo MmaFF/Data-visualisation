@@ -13,7 +13,7 @@
       "lookup": "properties.name_en",
       "from": {
         "data": {
-          "url": "data/2.3 Short-term visitor arrivals, state or territory of stay - July 2024.csv",
+          "url": "data/Short-term visitor - July 2024.csv",
           "format": {
             "type": "csv"
           }
