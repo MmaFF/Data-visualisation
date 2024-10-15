@@ -42,6 +42,7 @@
         "longitude": { "field": "longitude", "type": "quantitative" },
         "latitude": { "field": "latitude", "type": "quantitative" },
         "size": { "field": "trips", "type": "quantitative", "title": "Number of Trips" },
+        "color": { "value": "#ff0000" },
         "tooltip": [
           { "field": "state", "type": "nominal", "title": "State" },
           { "field": "trips", "type": "quantitative", "title": "Number of Trips" }
