@@ -6,20 +6,21 @@
     "width": 800,
     "height": 400,
     "encoding": {
-      "x": {
-        "field": "date",
-        "type": "temporal",
-        "title": "Date",
-        "axis": { "labelAngle": -45 }
-      },
-      "y": {
-        "field": "trip",
-        "type": "quantitative",
-        "title": "Number of Trips"
-      },
-      "tooltip": [
-        { "field": "date", "type": "temporal", "title": "Date" },
-        { "field": "trip", "type": "quantitative", "title": "Number of Trips" }
-      ]
+        "x": {
+            "field": "date",
+            "type": "temporal",
+            "title": "Date",
+            "axis": { "labelAngle": -45 },
+            "timeUnit": "yearmonth" 
+        },
+        "y": {
+            "field": "trip",
+            "type": "quantitative",
+            "title": "Number of Trips"
+        },
+        "tooltip": [
+            { "field": "date", "type": "temporal", "title": "Date", "format": "%b-%Y" },
+            { "field": "trip", "type": "quantitative", "title": "Number of Trips" }
+        ]
     }
-  }
+}
