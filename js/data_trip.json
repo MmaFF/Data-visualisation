@@ -4,24 +4,12 @@
     "data": {
         "url": "data/2.1 Short-term visitor arrivals.csv",
         "format": {
-            "type": "csv",
-            "parse": {
-                "date": "utc:'%b-%Y'"
-            }
+            "type": "csv"
         }
     },
     "mark": "line",
     "width": 800,
     "height": 400,
-    "transform": [
-        {
-            "filter": {
-                "field": "date",
-                "timeUnit": "yearmonth",
-                "range": [{"year": 2015, "month": "january"}, {"year": 2024, "month": "december"}]
-            }
-        }
-    ],
     "encoding": {
         "x": {
             "field": "date",
