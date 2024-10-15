@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     "description": "Choropleth map showing number of trips per state over time.",
                     "data": {
                         "values": tourismData,
-                        "format": { "type": "topojson", "feature": "name" }
+                        "format": { "type": "topojson", "feature": "AUS_state" }
                     },
                     "mark": {
                         "type": "geoshape",
