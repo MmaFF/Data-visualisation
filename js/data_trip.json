@@ -1,6 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Number of trips per month from 15 to 24 years",
+    "description": "This chart shows the number of trips taken each month over a 10-year period from 2015 to 2024. The data is represented over time, allowing the user to observe trends and seasonal changes in tourism.",
     "data": {
         "url": "data/2.1 Short-term visitor arrivals.csv",
         "format": {
