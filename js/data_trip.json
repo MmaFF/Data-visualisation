@@ -1,37 +1,56 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Number of trips per month from 15 to 24 years",
-    "description": "This chart shows the number of trips taken each month over a 10-year period from 2015 to 2024. The data is represented over time, allowing the user to observe trends and seasonal changes in tourism.",
-    "data": {
-        "url": "data/2.1 Short-term visitor arrivals.csv",
-        "format": {
-            "type": "csv",
-            "parse": {
-                "date": "utc:'%b-%Y'"
+    "vconcat": [
+        {
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "dx": 5,
+                "dy": -10,
+                "fontSize": 14,
+                "fontWeight": "bold"
+            },
+            "encoding": {
+                "text": {
+                    "value": "This chart shows the number of trips taken each month over a 10-year period from 2015 to 2024. The data is represented over time, allowing the user to observe trends and seasonal changes in tourism."
+                }
+            },
+            "width": 800
+        },
+        {
+            "data": {
+                "url": "data/2.1 Short-term visitor arrivals.csv",
+                "format": {
+                    "type": "csv",
+                    "parse": {
+                        "date": "utc:'%b-%Y'"
+                    }
+                }
+            },
+            "mark": "line",
+            "width": 800,
+            "height": 400,
+            "encoding": {
+                "x": {
+                    "field": "date",
+                    "type": "temporal",
+                    "title": "Date",
+                    "axis": {
+                        "labelAngle": -45,
+                        "format": "%b %Y"
+                    }
+                },
+                "y": {
+                    "field": "trip",
+                    "type": "quantitative",
+                    "title": "Number of Trips"
+                },
+                "tooltip": [
+                    { "field": "date", "type": "temporal", "title": "Date", "format": "%b %Y" },
+                    { "field": "trip", "type": "quantitative", "title": "Number of Trips" }
+                ]
             }
         }
-    },
-    "mark": "line",
-    "width": 800,
-    "height": 400,
-    "encoding": {
-        "x": {
-            "field": "date",
-            "type": "temporal",
-            "title": "Date",
-            "axis": {
-                "labelAngle": -45,
-                "format": "%b %Y"
-            }
-        },
-        "y": {
-            "field": "trip",
-            "type": "quantitative",
-            "title": "Number of Trips"
-        },
-        "tooltip": [
-            { "field": "date", "type": "temporal", "title": "Date", "format": "%b %Y" },
-            { "field": "trip", "type": "quantitative", "title": "Number of Trips" }
-        ]
-    }
+    ]
 }
