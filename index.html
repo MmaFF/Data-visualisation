@@ -8,20 +8,20 @@
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-    <script src="js/script.js" defer></script>
 </head>
 <body>
     <h2>Australian Tourism Data - Region-wise Interaction</h2>
-    <p class="intro">
-        The left chart displays the **average ratings** of different types of attractions, while the right chart shows
-        the **number of visitors** to each type. 
-    </p>
     <div class="grid-container">
-        <div id="visRatings" class="chart"></div>
-        <div id="visVisitors" class="chart"></div>
         <div id="visMap" class="chart"></div>
         <div id="visTimeSeries" class="chart"></div>
-        <div id="visScatter" class="chart"></div>
     </div>
+
+    <script>
+        // Load the Choropleth Map Visualization
+        vegaEmbed('#visMap', 'tourism_map.json').catch(console.error);
+
+        // Load the Time Series Line Chart
+        vegaEmbed('#visTimeSeries', 'data_trip.json').catch(console.error);
+    </script>
 </body>
 </html>
